@@ -1,0 +1,25 @@
+{
+  "name": "orm-associations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/happy-fox-2017/orm-associations.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/happy-fox-2017/orm-associations/issues"
+  },
+  "homepage": "https://github.com/happy-fox-2017/orm-associations#readme",
+  "dependencies": {
+    "chai": "^4.0.2",
+    "sequelize": "^4.0.0",
+    "sequelize-cli": "^2.7.0",
+    "sqlite3": "^3.1.8"
+  }
+}
