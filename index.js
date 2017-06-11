@@ -1,7 +1,8 @@
 "use strict"
 const db = require('./models');
+const repl = require('repl');
 
-function findFirstName(){
+function findFullnameAndAge(){
   db.Student.findAll().then(students => {
     students.forEach(student =>{
       console.log(`${student.getFullName()} dengan Umur ${student.getAge()}`);
@@ -44,44 +45,58 @@ function addDataTeacher() {
   })
 }
 
+function getStudentToTeachers(){
+  db.Student
+  .findAll()
+  .then(Students =>{
+    Students.forEach(Student =>{
+      console.log("first_name : "+Student.first_name);
+      console.log("last_name  : "+Student.last_name);
+      console.log("gender : "+Student.gender);
+      console.log("birthday : "+Student.birthday);
+      console.log("Email : "+Student.email);
+      console.log("Phone : "+Student.phone);
+      console.log("tinggi_badan : "+Student.tinggi_badan);
+      console.log("\n");
+      Student.getTeachers()
+      .then(Teachers =>{
+        Teachers.forEach(Teacher =>{
+          console.log("Teacher name :"+Teacher.name);
+        })
+      })
+    })
+  })
+}
 
-// ini untuk sebelum conjungtion
-// function getAssocationTableTeacherToStudent(){
-//   db.Teacher
-//   .findAll()
-//   .then(Teachers =>{
-//     Teachers.forEach(Teach =>{
-//       //console.log(Teach.name);
-//       Teach.getStudents()
-//       .then(Students =>{
-//         Students.forEach(stud =>{
-//           console.log("Ini Guru nya "+ Teach.name);
-//           console.log("Ini Student nya "+stud.first_name);
-//         })
-//       })
-//     })
-//   })
-// }
-
-// function getAssocationTableStudentToTeacher() {
-//   db.Student
-//   .findAll()
-//   .then(Students =>{
-//     Students.forEach(Stud =>{
-//       console.log(Stud.first_name);
-//       Stud.getTeacher()
-//       .then(Teacher =>{
-//         console.log(Stud.first_name);
-//         console.log(Teacher.name);
-//       })
-//     })
-//   })
-// }
+function getTeachersToStudent() {
+  db.Teacher
+  .findAll()
+  .then(Teachers => {
+    Teachers.forEach(Teacher =>{
+      console.log("name :"+Teacher.name);
+      console.log("email :"+Teacher.email);
+      Teacher.getStudents()
+      .then(Students =>{
+        Students.forEach(Student =>{
+          console.log("first_name : "+Student.first_name);
+          console.log("last_name  : "+Student.last_name);
+          console.log("gender : "+Student.gender);
+          console.log("birthday : "+Student.birthday);
+          console.log("Email : "+Student.email);
+          console.log("Phone : "+Student.phone);
+          console.log("tinggi_badan : "+Student.tinggi_badan);
+          console.log("\n");
+        })
+      })
+    })
+  })
+}
 
 
+const replServer = repl.start(">");
 
-//findFirstName();
-//db.Student.getAllData();
-//addDataStudent();
-//getAssocationTableTeacherToStudent()
-getAssocationTableStudentToTeacher();
+replServer.context.findFullnameAndAge = findFullnameAndAge;
+replServer.context.getAllData = db.Student.getAllData;
+replServer.context.addDataStudent = addDataStudent;
+replServer.context.getStudentToTeachers = getStudentToTeachers;
+replServer.context.getTeachersToStudent = getTeachersToStudent;

@@ -7,7 +7,12 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        
+        Student_Teacher.belongsTo(models.Teacher, {
+          foreignKey : "TeacherId"
+        }),
+        Student_Teacher.belongsTo(models.Student,{
+          foreignKey : "StudentId"
+        })
       }
     }
   });
