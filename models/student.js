@@ -22,8 +22,8 @@ module.exports = function(sequelize, DataTypes) {
           }).then(student => {
             if (student) {
               return next('email already in use')
-            } 
-            return next() 
+            }
+            return next()
           })
           .catch(err => {
             next(err)
@@ -51,7 +51,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        Student.belongsToMany(models.Teacher, {through: 'StudentTeachers'})
       },
       getAllData: function () {
         Student.findAll()
@@ -81,8 +81,8 @@ module.exports = function(sequelize, DataTypes) {
         return `Your age ${age}`
       }
     }
-      
-    
+
+
   });
   return Student;
 };
